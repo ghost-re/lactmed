@@ -1,6 +1,6 @@
 # LactMed
 
-LactMed is a simple web application that provides information about drugs and lactation. It is built using Python Flask and SQLite.
+LactMed is a simple web application that provides information about drugs and lactation. It is built using HTNL, CSS, JS and JSON.
 
 ## Usage
 
