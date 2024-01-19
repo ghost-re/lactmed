@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LactMed®</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style>
+            /* Custom styles for the UI */
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f2f2f2;
+                margin: 0;
+                padding: 0;
+                color: #333;
+            }
+
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+
+            .theme-toggle {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            .theme-toggle svg {
+                fill: #333;
+            }
+
+            .dark-theme {
+                background-color: #333;
+                color: #fff;
+            }
+
+            .dark-theme .theme-toggle svg {
+                fill: #fff;
+            }
+
+            .dark-theme .search-box input {
+                background-color: #333;
+                color: #fff;
+            }
+
+            .dark-theme select,
+            .dark-theme #content {
+                background-color: #444;
+                color: #fff;
+            }
+
+            .dark-theme footer,
+            .dark-theme footer a {
+                color: #888;
+            }
+
+            .search-box {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .search-box input {
+                flex-grow: 1;
+                padding: 8px;
+                border: none;
+                border-radius: 4px;
+                font-size: 16px;
+                background-color: #fff;
+                color: #333;
+            }
+
+            .select-container {
+                position: relative;
+            }
+
+            .select-container::after {
+                content: '\25BC';
+                font-size: 14px;
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+            }
+
+            select {
+                appearance: none;
+                -webkit-appearance: none;
+                padding: 8px 28px 8px 8px;
+                border: none;
+                border-radius: 4px;
+                font-size: 16px;
+                width: 100%;
+                background-color: #fff;
+                color: #333;
+            }
+
+            #content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 4px;
+                color: #333;
+            }
+
+            footer {
+                margin-top: 20px;
+                font-size: 12px;
+                color: #888;
+                text-align: center;
+            }
+
+            footer a {
+                color: #888;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>LactMed®</h1>
+                <button id="theme-toggle" class="theme-toggle">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8V16Z" fill="#000000" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM12 4V8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16V20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4Z" fill="#000000" />
+                    </svg>
+                </button>
+            </div>
+            <div class="search-box">
+                <input type="search" id="searchInput" placeholder="Search Drug...">
+            </div>
+            <div class="select-container">
+                <select id="keySelect"></select>
+            </div>
+            <div id="content"></div>
+            <footer>Data Source: <a href="https://www.ncbi.nlm.nih.gov/books/NBK501922/">Drugsand Lactation Database (LactMed®)</a>. <br> Redesigned by YeBeKhe. </footer>
+        </div>
+        <script>
+            document.getElementById('theme-toggle').addEventListener('click', function() {
+                document.body.classList.toggle('dark-theme');
+            });
+            // Function to load JSON data using fetch API
+            async function loadJSON() {
+                try {
+                    const response = await fetch('pregnancyAndLactation.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error('Error loading JSON file:', error);
+                    return null;
+                }
+            }
+            // Function to populate the dropdown with keys from JSON
+            function populateDropdown(data) {
+                const select = document.getElementById('keySelect');
+                select.innerHTML = ''; // Clear previous options
+                for (const key in data) {
+                    const option = document.createElement('option');
+                    option.text = key;
+                    option.value = key;
+                    select.add(option);
+                }
+            }
+            // Function to display the content of the selected key
+            function displayContent(data, key) {
+                const contentDiv = document.getElementById('content');
+                contentDiv.innerHTML = ''; // Clear previous content
+                const items = data[key];
+                if (Array.isArray(items)) {
+                    items.forEach(item => {
+                        Object.entries(item).forEach(([title, titleContent]) => {
+                            const p = document.createElement('p');
+                            p.innerHTML = `
+                                
+								<h4>
+									<strong>${title}</strong>:
+								</h4>
+								<p>${titleContent}</p>
+                            `;
+                            contentDiv.appendChild(p);
+                        });
+                    });
+                } else {
+                    // Handle non-array data
+                    Object.entries(items).forEach(([title, titleContent]) => {
+                        const p = document.createElement('p');
+                        p.innerHTML = `
+                            
+								<h4>
+									<strong>${title}</strong>:
+								</h4>
+								<p>${titleContent}</p>
+                        `;
+                        contentDiv.appendChild(p);
+                    });
+                }
+            }
+            // Function to filter dropdown options based on search input
+            function filterDropdown(searchTerm) {
+                const select = document.getElementById('keySelect');
+                const options = Array.from(select.querySelectorAll('option'));
+                options.forEach(option => {
+                    const text = option.text.toLowerCase();
+                    if (text.includes(searchTerm.toLowerCase())) {
+                        option.style.display = '';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+            }
+            // Function to handle dropdown change event
+            async function handleKeyChange() {
+                const key = this.value;
+                const data = await loadJSON();
+                if (data) {
+                    displayContent(data, key);
+                }
+            }
+            // Function to handle search input change event
+            function handleSearchChange() {
+                const searchTerm = this.value;
+                filterDropdown(searchTerm);
+                const select = document.getElementById('keySelect');
+                // Display content for the first matching option
+                const matchingOption = Array.from(select.options).find(option => option.style.display !== 'none');
+                if (matchingOption) {
+                    select.value = matchingOption.value;
+                    handleKeyChange.call(select); // Trigger content update
+                }
+            }
+            // Initialization
+            window.onload = async function() {
+                const data = await loadJSON();
+                if (data) {
+                    populateDropdown(data);
+                    // Display content for the first key by default
+                    const firstKey = Object.keys(data)[0];
+                    displayContent(data, firstKey);
+                    // Add event listener to dropdown
+                    const select = document.getElementById('keySelect');
+                    select.addEventListener('change', handleKeyChange);
+                    // Add event listener to search input
+                    const searchInput = document.getElementById('searchInput');
+                    searchInput.addEventListener('input', handleSearchChange);
+                }
+            };
+        </script>
+    </body>
+</html>
