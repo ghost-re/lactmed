@@ -6,7 +6,7 @@ self.addEventListener('install', event => {
 				'/index.html',
 				'/style.css',
 				'/script.js',
-                                'favicon.svg',
+                                '/favicon.svg',
 				'/icon-32x32.png',
 				'/icon-64x64.png',
 				'/icon-128x128.png',
