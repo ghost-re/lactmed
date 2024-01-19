@@ -1,20 +1,20 @@
 {
-    "name": "My Web App",
-    "short_name": "My Web App",
+    "name": "LactMed®",
+    "short_name": "LactMed®",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#fff",
     "theme_color": "#333",
     "icons": [
-    {
-    "src": "/icon-192x192.png",
-    "sizes": "192x192",
-    "type": "image/png"
-    },
-    {
-    "src": "/icon-512x512.png",
-    "sizes": "512x512",
-    "type": "image/png"
-    }
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
     ]
-    }
+}
