@@ -1,0 +1,115 @@
+/* Custom styles for the UI */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.theme-toggle {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.theme-toggle svg {
+  fill: #333;
+}
+
+.dark-theme {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-theme .theme-toggle svg {
+  fill: #fff;
+}
+
+.dark-theme .search-box input {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-theme select,
+.dark-theme #content {
+  background-color: #444;
+  color: #fff;
+}
+
+.dark-theme footer,
+.dark-theme footer a {
+  color: #888;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  flex-grow: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #333;
+}
+
+.select-container {
+  position: relative;
+}
+
+.select-container::after {
+  content: '\25BC';
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 8px 28px 8px 8px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  background-color: #fff;
+  color: #333;
+}
+
+#content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  color: #333;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+}
+
+footer a {
+  color: #888;
+}
