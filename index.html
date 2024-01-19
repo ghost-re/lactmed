@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LactMed®</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <style>
             /* Custom styles for the UI */
             body {
@@ -172,7 +171,7 @@
                     select.add(option);
                 }
             }
-            // Function to display the content of the selected key
+
             function displayContent(data, key) {
                 const contentDiv = document.getElementById('content');
                 contentDiv.innerHTML = ''; // Clear previous content
@@ -180,29 +179,35 @@
                 if (Array.isArray(items)) {
                     items.forEach(item => {
                         Object.entries(item).forEach(([title, titleContent]) => {
-                            const p = document.createElement('p');
-                            p.innerHTML = `
-                                
-								<h4>
-									<strong>${title}</strong>:
-								</h4>
-								<p>${titleContent}</p>
-                            `;
-                            contentDiv.appendChild(p);
+                            if (title !== 'keywords') { // Check if title is not "keyword"
+                                const p = document.createElement('p');
+                                p.innerHTML = `
+                        
+							<h4>
+								<strong>${title}</strong>:
+                        
+							</h4>
+							<p>${titleContent}</p>
+                    `;
+                                contentDiv.appendChild(p);
+                            }
                         });
                     });
                 } else {
                     // Handle non-array data
                     Object.entries(items).forEach(([title, titleContent]) => {
-                        const p = document.createElement('p');
-                        p.innerHTML = `
-                            
-								<h4>
-									<strong>${title}</strong>:
-								</h4>
-								<p>${titleContent}</p>
-                        `;
-                        contentDiv.appendChild(p);
+                        if (title !== 'keywords') { // Check if title is not "keyword"
+                            const p = document.createElement('p');
+                            p.innerHTML = `
+                    
+							<h4>
+								<strong>${title}</strong>:
+                    
+							</h4>
+							<p>${titleContent}</p>
+                `;
+                            contentDiv.appendChild(p);
+                        }
                     });
                 }
             }
