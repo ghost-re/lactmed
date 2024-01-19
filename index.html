@@ -217,13 +217,13 @@
                 if (Array.isArray(items)) {
                     items.forEach(item => {
                         Object.entries(item).forEach(([title, titleContent]) => {
-                            if (title !== 'keywords') { // Check if title is not "keyword"
+                            if (title == 'Summary of Use during Lactation') { // Check if title is not "keyword"
                                 const p = document.createElement('p');
                                 p.innerHTML = `
                         
 							
 							<h4>
-								<strong>${title}</strong>:
+								<strong>${key}</strong>:
                         
 							
 							</h4>
@@ -236,13 +236,13 @@
                 } else {
                     // Handle non-array data
                     Object.entries(items).forEach(([title, titleContent]) => {
-                        if (title !== 'keywords') { // Check if title is not "keyword"
+                        if (title == 'Summary of Use during Lactation') { // Check if title is not "keyword"
                             const p = document.createElement('p');
                             p.innerHTML = `
                     
 							
 							<h4>
-								<strong>${title}</strong>:
+								<strong>${key}</strong>:
                     
 							
 							</h4>
