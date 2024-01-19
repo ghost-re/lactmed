@@ -5,6 +5,7 @@ self.addEventListener('install', event => {
     '/index.html',
     '/style.css',
     '/scripts.js',
+    'pregnancyAndLactation.json',
     '/icon-192x192.png',
     '/icon-512x512.png'
     ]);
