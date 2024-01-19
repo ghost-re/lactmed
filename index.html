@@ -143,8 +143,46 @@
             <footer>Data Source: <a href="https://www.ncbi.nlm.nih.gov/books/NBK501922/">Drugsand Lactation Database (LactMed®)</a>. <br> Redesigned by YeBeKhe. </footer>
         </div>
         <script>
-            document.getElementById('theme-toggle').addEventListener('click', function() {
+            // Function to set a cookie
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+            // Function to get the value of a cookie
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) === ' ') {
+                        c = c.substring(1, c.length);
+                    }
+                    if (c.indexOf(nameEQ) === 0) {
+                        return c.substring(nameEQ.length, c.length);
+                    }
+                }
+                return null;
+            }
+            // Get the theme toggle button element
+            var themeToggle = document.getElementById('theme-toggle');
+            // Read the theme state from the cookie and apply it
+            var themeState = getCookie('themeState');
+            if (themeState === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+            // Add event listener to the theme toggle button
+            themeToggle.addEventListener('click', function() {
+                // Toggle the dark-theme class on the body element
                 document.body.classList.toggle('dark-theme');
+                // Get the current theme state
+                var currentThemeState = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+                // Save the theme state in a cookie with a 1-year expiration
+                setCookie('themeState', currentThemeState, 365);
             });
             // Function to load JSON data using fetch API
             async function loadJSON() {
@@ -183,9 +221,11 @@
                                 const p = document.createElement('p');
                                 p.innerHTML = `
                         
+							
 							<h4>
 								<strong>${title}</strong>:
                         
+							
 							</h4>
 							<p>${titleContent}</p>
                     `;
@@ -200,9 +240,11 @@
                             const p = document.createElement('p');
                             p.innerHTML = `
                     
+							
 							<h4>
 								<strong>${title}</strong>:
                     
+							
 							</h4>
 							<p>${titleContent}</p>
                 `;
