@@ -4,7 +4,27 @@
     "description": "LactMed is a simple web application that provides information about drugs and lactation. It is built using HTNL, CSS, JS and JSON.",
     "icons": [
       {
-        "src": "icon-192x192.png",
+        "src": "icon-32X32.png",
+        "sizes": "32x32",
+        "type": "image/png"
+      },
+      {
+        "src": "icon-64X64.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "icon-128X128.png",
+        "sizes": "32x32",
+        "type": "image/png"
+      },
+      {
+        "src": "icon-192X192.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "icon-256X256.png",
         "sizes": "32x32",
         "type": "image/png"
       },
